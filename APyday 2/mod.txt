@@ -1,0 +1,55 @@
+{
+	"name" : "APYDAY 2",
+	"description" : "Play PAYDAY 2 across the multiworld!",
+	"author" : "C@:\\EM1NAL\\",
+	"contact" : "contact@stupidcat.uk",
+	"version" : "0.0.0",
+	"blt_version" : 2,
+	"color" : "51 153 204",
+	"image" : "icon.png",
+	
+	"updates" : [
+		{
+			"identifier" : "archipelago-pd2",
+			"host": 
+				{ "meta" : "https://raw.githubusercontent.com/CATEM1NAL/APyday-2/refs/heads/main/meta.json" }
+		}
+	],
+	
+	"pre_hooks" : [
+  		{ "hook_id" : "lib/setups/setup", "script_path" : "apd2_setup.lua" }
+	],
+	
+	"hooks" : [
+		{ "hook_id" : "lib/managers/menumanager",		"script_path" : "lua/managers/menu.lua" },
+		{ "hook_id" : "lib/managers/menu/playerinventorygui",	"script_path" : "lua/managers/inventorygui.lua" },
+		{ "hook_id" : "lib/managers/customsafehousemanager",	"script_path" : "lua/managers/safehouse.lua" },
+		{ "hook_id" : "lib/managers/criminalsmanager",		"script_path" : "lua/managers/criminals.lua" },
+		{ "hook_id" : "lib/managers/lootmanager",		"script_path" : "lua/score_handler.lua" },
+		{ "hook_id" : "lib/managers/experiencemanager",		"script_path" : "lua/score_handler.lua" },
+		{ "hook_id" : "lib/managers/mission/elementpickup",	"script_path" : "lua/score_handler.lua" },
+		{ "hook_id" : "lib/units/enemies/cop/copdamage",	"script_path" : "lua/score_handler.lua" },
+		{ "hook_id" : "lib/managers/playermanager",	"script_path" : "lua/upgrade_handler.lua" },
+		{ "hook_id" : "lib/tweak_data/upgradestweakdata",	"script_path" : "lua/upgrade_handler.lua" },
+		{ "hook_id" : "lib/states/ingamestandard",		"script_path" : "lua/forced_ponr.lua" },
+		{ "hook_id" : "lib/states/victorystate",		"script_path" : "lua/states/victory.lua" },
+		{ "hook_id" : "lib/states/gameoverstate",		"script_path" : "lua/states/gameover.lua" },
+		{ "hook_id" : "lib/managers/savefilemanager",		"script_path" : "lua/overrides/savefile.lua" },
+		{ "hook_id" : "lib/network/base/networkmanager",	"script_path" : "lua/overrides/matchmaking.lua" },
+		{ "hook_id" : "lib/managers/jobmanager",		"script_path" : "lua/overrides/pro_job.lua" },
+		{ "hook_id" : "lib/managers/blackmarketmanager",		"script_path" : "lua/overrides/sidejob_unlocks.lua" },
+		{ "hook_id" : "lib/managers/skilltreemanager",		"script_path" : "lua/overrides/skills_perks.lua" },
+		{ "hook_id" : "lib/tweak_data/moneytweakdata",		"script_path" : "lua/overrides/item_cost.lua" }
+	],
+	
+	"keybinds": [
+		{
+			"keybind_id" : "apd2_unlock_menu",
+			"name" : "APYDAY 2 Upgrades",
+			"description" : "See a list of your current upgrades.",
+			"script_path" : "lua/upgrade_menu.lua",
+			"run_in_menu" : true,
+			"run_in_game" : true
+		}
+	]
+}
