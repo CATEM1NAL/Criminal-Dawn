@@ -28,9 +28,9 @@ jobs:
         uses: TheDoctor0/zip-release@0.7.6
         with:
           type: 'zip'
-          filename: 'APyday-2.zip'
+          filename: 'CriminalDawn.zip'
           exclusions: '*.git* meta.json README.md LICENSE'
       - uses: ncipollo/release-action@v1
         with:
-          artifacts: 'APyday-2.zip'
+          artifacts: 'CriminalDawn.zip'
           allowUpdates: true
