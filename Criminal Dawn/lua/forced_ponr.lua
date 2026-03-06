@@ -61,17 +61,3 @@ Hooks:PostHook(IngameStandardState, "at_enter", "apd2_force_ponr", function(self
   
   APD2PONRActive = true
 end)
-
--- Sync PONR across players
-NetworkHelper:AddReceiveHook("APD2StartPONR", "apd2_sync_ponr", function(data, sender)
-  log(APD2FileIdent .. "Received PONR sync")
-  if not APD2PONRActive then
-    apd2_createPONR()
-
-    log(APD2FileIdent .. apd2_data.game.ponr)
-    managers.groupai:state():set_point_of_no_return_timer(apd2_data.game.ponr, "forced_ponr", "apd2_ponr")
-    apd2_maskup_time = TimerManager:game():time()
-
-    APD2PONRActive = true
-  end
-end)

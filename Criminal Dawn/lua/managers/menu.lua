@@ -10,9 +10,12 @@ function MenuCallbackHandler:apd2_create_lobby()
   if not apd2_data.game.seed then
     local needSeed = QuickMenu:new("Missing Multiworld Data", "You need to connect to a multiworld at least once before playing.", {}, true)
   else
-    NetworkMatchMakingSTEAM._BUILD_SEARCH_INTEREST_KEY = apd2_data.game.seed
-    NetworkMatchMakingEPIC._BUILD_SEARCH_INTEREST_KEY = apd2_data.game.seed
-    log(APD2FileIdent .. "Updated matchmaking key: " .. NetworkMatchMakingSTEAM._BUILD_SEARCH_INTEREST_KEY)
+    if NetworkMatchMakingSTEAM._BUILD_SEARCH_INTEREST_KEY ~= apd2_data.game.seed then
+      NetworkMatchMakingSTEAM._BUILD_SEARCH_INTEREST_KEY = apd2_data.game.seed
+      NetworkMatchMakingEPIC._BUILD_SEARCH_INTEREST_KEY = apd2_data.game.seed
+      log(APD2FileIdent .. "Updated matchmaking key: " .. NetworkMatchMakingSTEAM._BUILD_SEARCH_INTEREST_KEY)
+    end
+
     self:create_lobby()
   end
 end
@@ -172,7 +175,7 @@ Hooks:Add("MenuManagerBuildCustomMenus", "apd2_custommenus", function(menu_manag
         breakCounter = breakCounter + 1
         
       elseif item._parameters.name == "end_game" then
-        item._enabled = false
+        --item._enabled = false
         breakCounter = breakCounter + 1
       end
       
@@ -211,20 +214,11 @@ end)
 
 Hooks:PostHook(MenuCallbackHandler, "start_the_game", "apd2_startheist", function(self)
   if not APD2StartedGame and not Utils:IsInGameState() then
-    managers.mutators._lobby_delay = 0
     -- check for any last second items
     apd2_get_ponr_upgrades()
     apd2_poll_client()
     APD2StartedGame = true
   end
-end)
-
--- Receive number of heists for score calculation
-NetworkHelper:AddReceiveHook("APD2SendHeistCount", "apd2_sync_heistlist", function(data, sender)
-  log(APD2FileIdent .. "Received heists from host ( " .. data .. " )")
-  apd2_data.game.host_heists = tonumber(data)
-  io.save_as_json(apd2_data, SavePath .. "apyday2.txt")
-  log(APD2FileIdent .. "Saved " .. SavePath .. "apyday2.txt")
 end)
 
 -- Resetting save also resets mod
@@ -234,13 +228,13 @@ Hooks:PostHook(MenuManager, "do_clear_progress", "apd2_resetsave", function(self
   apd2_data = {
     upgrades = {},
     unlocks = {},
-    x = { bots = 0, mutators = 0, diff = 0, od = 1 },
-    game = { heists = {}, score = 0 },
+    x = { bots = 0, mutators = 0, diff = 0 },
+    game = { run = 1, heists = {}, score = 0, deathlink = 0 },
+    chat = { message = "", timestamp = 0 },
     safehouse = {}
   }
   
-  io.save_as_json(apd2_data, SavePath .. "apyday2.txt")
-  log(APD2FileIdent .. "Saved " .. SavePath .. "apyday2.txt")
+  apd2_save(APD2FileIdent, "save reset")
   os.remove(SavePath .. "apyday2-client.txt")
   setup:load_start_menu()
 end)

@@ -11,27 +11,26 @@ APD2Path = ModPath -- BeardLib can suck a fat nut
 -- solution I found that worked. If there's a better
 -- way to do this, please let me know!
 
+function apd2_save(APD2FileIdent, SaveReason)
+  io.save_as_json(apd2_data, SavePath .. "apyday2.txt")
+  log(APD2FileIdent .. "Saved " .. SavePath .. "apyday2.txt (" .. SaveReason .. ")")
+end
+
 function apd2_load()
   log(APD2FileIdent .. "Attempting apd2_data load...")
   
   apd2_data = io.load_as_json(SavePath .. "apyday2.txt") or {}
   apd2_data.upgrades = apd2_data.upgrades or {}
   apd2_data.unlocks = apd2_data.unlocks or {}
-  apd2_data.x = apd2_data.x or {}
-  apd2_data.x.bots = apd2_data.x.bots or 0
-  apd2_data.x.mutators = apd2_data.x.mutators or 0
-  apd2_data.x.diff = apd2_data.x.diff or 0
-  apd2_data.game = apd2_data.game or {}
-  apd2_data.game.run = apd2_data.game.run or 1
-  apd2_data.game.heists = apd2_data.game.heists or {}
-  apd2_data.game.score = apd2_data.game.score or 0
+  apd2_data.x = apd2_data.x or { bots = 0, mutators = 0, diff = 0 }
+  apd2_data.game = apd2_data.game or { run = 1, heists = {}, score = 0, deathlink = 0 }
+  apd2_data.chat = apd2_data.chat or { message = "", timestamp = 0 }
   apd2_data.safehouse = apd2_data.safehouse or {}
   
   if apd2_data.game.start_time and not apd2_data.game.ponr then
     local initialTimeBonus = apd2_data.game.time_bonus * (apd2_data.x.ponr_upgrade or 0)
     apd2_data.game.ponr = apd2_data.game.start_time + initialTimeBonus
   end
-  --Utils.PrintTable(apd2_data, 4)
 end
 
 apd2_load()

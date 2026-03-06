@@ -1,13 +1,66 @@
 local APD2FileIdent = "[APD2>unlock_generator] "
 
+-- Check if any of the unlocks in the requirements are met
+local function AnyUnlockObtained(reqs)
+  for _, item in ipairs(reqs) do
+    if apd2_data.unlocks[item] then
+      return true
+    end
+  end
+  return false
+end
+
+-- Check if any of the upgrades in the requirements are met
+local function AnyUpgradeObtained(reqs)
+  for _, item in ipairs(reqs) do
+    if apd2_data.upgrades[item] then
+      return true
+    end
+  end
+  return false
+end
+
 -- Generate specific number of specific upgrade type
 function apd2_random_upgrades(count, table_name)
   local BaseTable = {}
 
-  -- Build initial table of keys and readable names
-  for key, _ in pairs(apd2_upgrade_tables[table_name]) do
-    local name = apd2_upgrade_tables[table_name][key]["name"]
-    if name ~= "INVALID" then
+  for key, data in pairs(apd2_upgrade_tables[table_name]) do
+    local name = data.name
+
+    -- Check if data value is met
+    local CountMet
+    if data.countreq then
+      local CountKey, CountValue = data.count_req:match("([^:]+):(.*)")
+      if data.count_req and (apd2_data.x[CountKey] >= tonumber(CountValue)) then
+        CountMet = true
+      end
+    end
+
+    -- Create table of item requirements
+    local ItemReq = {}
+    if data.item_req then
+      for item in data.item_req:gmatch("([^,]+)") do
+        table.insert(ItemReq, item)
+      end
+    end
+    
+    -- Create table of upgrade requirements
+    local UpgReq = {}
+    if data.upg_req then
+      for item in data.upg_req:gmatch("([^,]+)") do
+        table.insert(UpgReq, item)
+      end
+    end
+
+    -- If upgrade is valid,
+    -- any upgrade req. is obtained,
+    -- any item req. is unlocked,
+    -- and the data count is met,
+    -- add it to the base table
+    if name ~= "INVALID" and
+    (not data.upg_req or AnyUpgradeObtained(UpgReq)) and
+    (not data.item_req or AnyUnlockObtained(ItemReq)) and
+    (not data.count_req or CountMet) then
       BaseTable[key] = name
     end
   end
@@ -27,7 +80,7 @@ function apd2_random_upgrades(count, table_name)
   end
 
   -- Update count to fit the new table length
-  count = math.min(count, #WorkingTable)
+  count = math.min(count or 0, #WorkingTable)
 
   local UpgradeIndex
   -- Add the specified number of random upgrades
@@ -57,7 +110,7 @@ function apd2_random_weapons(count, table_name)
   for i = 1, count do
     WeaponIndex = math.random(#WorkingTable)
     apd2_data.unlocks[WorkingTable[WeaponIndex]] = true
-    log(APD2FileIdent .. "Added " .. WorkingTable[WeaponIndex] .. " to weapon table")
+    log(APD2FileIdent .. "Added " .. WorkingTable[WeaponIndex] .. " to unlock table")
     table.remove(WorkingTable, WeaponIndex)
   end
 end
@@ -81,7 +134,7 @@ function apd2_random_armors(count)
   for i = 1, count do
     ArmorIndex = math.random(#ArmorTable)
     apd2_data.unlocks[ArmorTable[ArmorIndex]] = true
-    log(APD2FileIdent .. "Added " .. ArmorTable[ArmorIndex] .. " to weapon table")
+    log(APD2FileIdent .. "Added " .. ArmorTable[ArmorIndex] .. " to unlock table")
     table.remove(ArmorTable, ArmorIndex)
   end
 end
@@ -105,7 +158,7 @@ function apd2_random_deployables(count)
   for i = 1, count do
     DeployIndex = math.random(#DeployTable)
     apd2_data.unlocks[DeployTable[DeployIndex]] = true
-    log(APD2FileIdent .. "Added " .. DeployTable[DeployIndex] .. " to weapon table")
+    log(APD2FileIdent .. "Added " .. DeployTable[DeployIndex] .. " to unlock table")
     table.remove(DeployTable, DeployIndex)
   end
 end

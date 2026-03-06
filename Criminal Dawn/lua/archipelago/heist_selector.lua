@@ -17,6 +17,5 @@ function apd2_next_heist(HeistsWon)
 
   --Utils.PrintTable(apd2_data.game.heists, 1)
   log(APD2FileIdent .. NextHeist)
-  io.save_as_json(apd2_data, SavePath .. "apyday2.txt")
-  log(APD2FileIdent .. "Saved " .. SavePath .. "apyday2.txt")
+  apd2_save(APD2FileIdent, "next heist selected")
 end

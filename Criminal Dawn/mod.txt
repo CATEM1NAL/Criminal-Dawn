@@ -1,11 +1,12 @@
 {
 	"name" : "Criminal Dawn",
-	"description" : "Turns PAYDAY 2 into a multiworld randomiser roguelite using https://archipelago.gg.",
+	"description" : "Turns PAYDAY 2 into a multiworld randomiser roguelite powered by https://archipelago.gg.",
 	"author" : "C@:\\EM1NAL\\",
 	"contact" : "contact@stupidcat.uk",
 	"version" : "0.0.0",
 	"blt_version" : 2,
-	"color" : "217 160 125",
+	"color" : "118 126 189",
+	"image" : "dawn.png",
 	
 	"updates" : [
 		{
@@ -21,6 +22,8 @@
 	
 	"hooks" : [
 		{ "hook_id" : "lib/managers/menumanager",		"script_path" : "lua/managers/menu.lua" },
+		{ "hook_id" : "lib/network/base/networkmanager",	"script_path" : "lua/managers/network.lua" },
+		{ "hook_id" : "lib/managers/chatmanager",		"script_path" : "lua/managers/chatroom.lua" },
 		{ "hook_id" : "lib/managers/menu/playerinventorygui",	"script_path" : "lua/managers/inventorygui.lua" },
 		{ "hook_id" : "lib/managers/customsafehousemanager",	"script_path" : "lua/managers/safehouse.lua" },
 		{ "hook_id" : "lib/managers/criminalsmanager",		"script_path" : "lua/managers/criminals.lua" },
@@ -33,9 +36,12 @@
 		{ "hook_id" : "lib/states/ingamestandard",		"script_path" : "lua/forced_ponr.lua" },
 		{ "hook_id" : "lib/states/victorystate",		"script_path" : "lua/states/victory.lua" },
 		{ "hook_id" : "lib/states/gameoverstate",		"script_path" : "lua/states/gameover.lua" },
+		{ "hook_id" : "lib/units/beings/player/playerdamage",		"script_path" : "lua/archipelago/deathlink.lua" },
 		{ "hook_id" : "lib/managers/savefilemanager",		"script_path" : "lua/overrides/savefile.lua" },
-		{ "hook_id" : "lib/network/base/networkmanager",	"script_path" : "lua/overrides/matchmaking.lua" },
 		{ "hook_id" : "lib/managers/jobmanager",		"script_path" : "lua/overrides/pro_job.lua" },
+		{ "hook_id" : "lib/managers/mutatorsmanager",		"script_path" : "lua/overrides/mutator_rules.lua" },
+		{ "hook_id" : "lib/managers/hud/hudassaultcorner",		"script_path" : "lua/overrides/hud_corner.lua" },
+		{ "hook_id" : "lib/managers/group_ai_states/groupaistatebase",		"script_path" : "lua/overrides/ponr_dropin.lua" },
 		{ "hook_id" : "lib/managers/genericsidejobsmanager",		"script_path" : "lua/overrides/sidejobs_generic.lua" },
 		{ "hook_id" : "lib/managers/sidejobeventmanager",		"script_path" : "lua/overrides/sidejobs_event.lua" },
 		{ "hook_id" : "lib/managers/sidejobgenericdlcmanager",		"script_path" : "lua/overrides/sidejobs_dlc.lua" },

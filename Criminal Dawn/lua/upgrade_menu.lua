@@ -1,4 +1,4 @@
-local upgrades = { skills = {}, perks = {}, stats = {} }
+local upgrades = { skills = {}, perks = {}, stats = {}, deployable = {} }
 
 --Utils.PrintTable(managers.mutators._mutators, 3)
 --Utils.PrintTable(Global.mutators.active_on_load, 3)
@@ -40,9 +40,11 @@ function apd2_buildUpgradeMenus()
             callback = apd2_display_skills },
     [2] = { text = "Perks",
             callback = apd2_display_perks },
-    [3] = { text = "Stats",
+    [3] = { text = "Stat Boosts",
             callback = apd2_display_stats },
-    [4] = { text = managers.localization:text("menu_back"),
+    [4] = { text = "Deployable",
+            callback = apd2_display_deploy },
+    [5] = { text = managers.localization:text("menu_back"),
             is_cancel_button = true }
   }
 
@@ -62,13 +64,21 @@ function apd2_buildUpgradeMenus()
   end
   apd2_perks_menu = QuickMenu:new(menu_title, menu_text, menu_buttons)
 
-  menu_title = "Current Stats"
+  menu_title = "Current Stat Boosts"
   if next(upgrades.stats) then
     menu_text = table.concat(upgrades.stats, "\n")
   else
     menu_text = "None"
   end
   apd2_stats_menu = QuickMenu:new(menu_title, menu_text, menu_buttons)
+
+  menu_title = "Current Deployable Upgrades"
+  if next(upgrades.deployable) then
+    menu_text = table.concat(upgrades.deployable, "\n")
+  else
+    menu_text = "None"
+  end
+  apd2_deploy_menu = QuickMenu:new(menu_title, menu_text, menu_buttons)
 end
 
 function apd2_display_skills()
@@ -84,6 +94,11 @@ end
 function apd2_display_stats()
   apd2_buildUpgradeMenus()
   apd2_stats_menu:Show()
+end
+
+function apd2_display_deploy()
+  apd2_buildUpgradeMenus()
+  apd2_deploy_menu:Show()
 end
 
 apd2_display_skills()

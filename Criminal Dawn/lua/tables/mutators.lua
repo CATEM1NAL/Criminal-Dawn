@@ -2,23 +2,23 @@ managers.mutators:reset_all_mutators()
 
 local MutatorTable = { 
   "CloakerEffect", "EnemyDamage", "EnemyHealth", "EnemyReplacer",
-  "Titandozers", "Hydra", "ShotgunTweak" 
+  "Titandozers", "Hydra", "ShotgunTweak"
 }
 
---local ActiveMutators = {}
+local peers_table = managers.network and managers.network:session() and managers.network:session():peers()
+if table.size(peers_table or {}) > 0 then
+  table.insert(MutatorTable, "FriendlyFire")
+end
 
 for i = 1, #apd2_data.game.heists - 1 + apd2_data.x.mutators do
   local CurrentIndex = math.random(#MutatorTable)
   local CurrentMutator = MutatorTable[CurrentIndex]
   
   if CurrentMutator then
-    --table.insert(ActiveMutators, "Mutator" .. CurrentMutator)
     managers.mutators:set_enabled("Mutator" .. CurrentMutator)
     table.remove(MutatorTable, CurrentIndex)
   end
 end
-
---Utils.PrintTable(ActiveMutators)
 
 -- Generate mutator effects
 --local AlternateArsenal = 1.5 + math.random() * (2 - 1.5)
@@ -47,6 +47,3 @@ managers.mutators:get_mutator_from_id("MutatorShotgunTweak"):set_value("mothersh
 managers.mutators:get_mutator_from_id("MutatorHydra"):set_value("max_unit_depth", Hydra)
 managers.mutators:get_mutator_from_id("MutatorEnemyReplacer"):set_value("override_enemy", CloneArmy)
 managers.mutators:get_mutator_from_id("MutatorCloakerEffect"):set_value("kick_effect", "random")
-
---MenuCallbackHandler:update_matchmake_attributes()
---Utils.PrintTable(Global.mutators.active_on_load, 3)

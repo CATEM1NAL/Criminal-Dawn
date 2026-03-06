@@ -9,4 +9,8 @@ if BigLobbyGlobals then
 end
 
 log(APD2FileIdent .. "Bot count: " .. math.min(apd2_data.x.bots, MaxBots))
-CriminalsManager.MAX_NR_TEAM_AI = math.min(apd2_data.x.bots, MaxBots)
+
+CriminalsManager.MAX_NR_TEAM_AI = MaxBots
+if NetworkHelper:IsHost() then
+  CriminalsManager.MAX_NR_TEAM_AI = math.min(apd2_data.x.bots, MaxBots)  
+end
