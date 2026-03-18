@@ -1,4 +1,4 @@
--- Move tickers down to not overlap PONR timer
+ -- Move tickers down to not overlap PONR timer
 Hooks:PostHook(HUDAssaultCorner, "init", "CrimDawn_HUDCorner", function(self)
   self._hud_panel:child("casing_panel"):set_y(38)
   self._hud_panel:child("assault_panel"):set_y(38)
@@ -11,7 +11,7 @@ Hooks:OverrideFunction(HUDAssaultCorner, "show_point_of_no_return_timer", functi
 
   local point_of_no_return_panel = self._hud_panel:child("point_of_no_return_panel")
 
-  --point_of_no_return_panel:stop()
+  point_of_no_return_panel:stop()
   point_of_no_return_panel:animate(callback(self, self, "_animate_show_noreturn"), 0)
   self:_set_feedback_color(self._noreturn_data.color)
 end)

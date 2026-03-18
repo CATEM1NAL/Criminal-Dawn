@@ -2,57 +2,51 @@ Global.CrimDawn.tables.upgrades = {
 
   permaperks = {
 
-    { name = "Blending In", desc = "+1 concealment.",
-      "player_passive_suspicion_bonus",
+    { -- Blending In: +1 Concealment
+      "player_passive_suspicion_bonus"
     },
-    { name = "Second Skin", desc = "15% reduced armor speed penalty.",
+    { -- Second Skin: 15% reduced armor speed penalty
       "player_passive_armor_movement_penalty_multiplier"
     },
-    { name = "Fast Learner", desc = "45% EXP bonus.",
-      "passive_player_xp_multiplier"
-    },
-    { name = "Whole Bullet", desc = "5% damage bonus",
+    { -- Whole Bullet: 5% damage bonus
       "weapon_passive_damage_multiplier"
     },
-    { name = "Walk-in Closet Lv1", desc = "Ammo pickup increased by 35%.",
+    { -- Walk-in Closet Lv1: Ammo pickup increased by 35%
       "player_pick_up_ammo_multiplier"
     },
-    { name = "Helmet Popping", desc = "25% headshot damage bonus.",
+    { -- Helmet Popping: 25% headshot damage bonus
       "weapon_passive_headshot_damage_multiplier"
     },
-    { name = "Triage", desc = "20% faster doctor bag interactions.",
+    { -- Triage: 20% faster doctor bag interactions
       "passive_doctor_bag_interaction_speed_multiplier"
     },
-    { name = "Walk-in Closet Lv2", desc = "Ammo pickup increased by 75%.",
+    { -- Walk-in Closet Lv2: Ammo pickup increased by 75%
       "player_pick_up_ammo_multiplier_2"
     },
   },
 
   permaskills = {
 
-    { name = "Cat Burglar", desc = "Falls inflict armor damage.",
+    { -- Cat Burglar: Falls inflict armor damage
       "player_fall_health_damage_multiplier"
     },
-    { name = "Stun Resistance", desc = "75% flashbang resistance.",
-      "player_flashbang_multiplier_2"
-    },
-    { name = "Cleaner", desc = "Can bag bodies.",
+    { -- Cleaner: Can bag bodies
       "player_corpse_dispose", "player_extra_corpse_dispose_amount"
     },
-    { name = "Dominator", desc = "Can intimidate non-special enemies.",
+    { -- Dominator: Can intimidate non-special enemies
       "player_intimidate_enemies"
     },
-    { name = "Drop Cloth", desc = "Enemy death alert range reduced by 95%.",
+    { -- Drop Cloth: Enemy death alert range reduced by 95%
       "player_silent_kill"
     },
-    { name = "Toolkit", desc = "Repair drills and saws 25% faster.",
+    { -- Toolkit: Repair drills and saws 25% faster
       "player_drill_fix_interaction_speed_multiplier"
     },
-    { name = "Handyman", desc = "100% faster deployable interactions.",
-      "deploy_interact_faster_1"
-    },
-    { name = "Die Hard", desc = "50% damage reduction while interacting.",
+    { -- Die Hard: 50% damage reduction while interacting
       "player_interacting_damage_multiplier"
+    },
+    { -- Jack of all Trades: 100% faster deployable interactions
+      "deploy_interact_faster_1", "second_deployable_1"
     },
   },
 
@@ -132,7 +126,7 @@ Global.CrimDawn.tables.upgrades = {
                              upg_type = "weapon",
       "shotgun_hip_run_and_shoot_1"
     },
-    overkill_2 = { name = "Overkill", desc = "On shotgun/saw kill gain a 75% damage bonus for 20s.",
+    overkill = { name = "Overkill", desc = "On shotgun/saw kill gain a 75% damage bonus for 20s.",
                    upg_type = "weapon",
       "player_overkill_all_weapons", "player_overkill_damage_multiplier"
     },
@@ -582,6 +576,18 @@ Global.CrimDawn.tables.upgrades = {
                           upg_type = "stat", item_req = "body_armor3", disable = "crook_hbv_dodge_1,crook_hbv_dodge_2",
       "player_level_4_dodge_addend_1", "player_level_4_dodge_addend_2", "player_level_4_dodge_addend_3"
     },
+    crook_hbv_armour_1 = { name = "HBV Composure Lv1", desc = "+5% dodge chance (heavy ballistic vest).",
+                          upg_type = "stat", item_req = "body_armor3", disable = "crook_hbv_armour_2,crook_hbv_armour_3",
+      "player_level_4_armor_multiplier_1"
+    },
+    crook_hbv_armour_2 = { name = "HBV Composure Lv2", desc = "+15% dodge chance (heavy ballistic vest).",
+                          upg_type = "stat", item_req = "body_armor3", disable = "crook_hbv_armour_1,crook_hbv_armour_3",
+      "player_level_4_armor_multiplier_2"
+    },
+    crook_hbv_armour_3 = { name = "HBV Composure Lv3", desc = "+25% dodge chance (heavy ballistic vest).",
+                          upg_type = "stat", item_req = "body_armor3", disable = "crook_hbv_armour_1,crook_hbv_armour_2",
+      "player_level_4_armor_multiplier_3"
+    },
     crook_recovery = { name = "Composure", desc = "10% faster armor recovery.",
                        upg_type = "stat", disable = "anarch_recovery,stoic_armor_convert",
       "player_armor_regen_timer_multiplier_tier"
@@ -1024,7 +1030,7 @@ Global.CrimDawn.tables.upgrades = {
                               upg_type = "player",
       "carry_movement_speed_multiplier"
     },
-    fall_damage_reduction = { name = "", desc = "Take 75% less damage from falls.",
+    fall_damage_reduction = { name = "Featherfall", desc = "Take 75% less damage from falls.",
                               upg_type = "player",
       "player_fall_damage_multiplier"
     },
@@ -1113,11 +1119,11 @@ Global.CrimDawn.tables.upgrades = {
 
     -- Enforcer Skills
     shotgun_reload_1 = { name = "Shotgun CQB Lv1", desc = "Reload shotguns 15% faster.",
-                         upg_type = "weapon",
+                         upg_type = "weapon", disable = "shotgun_reload_2",
       "shotgun_reload_speed_multiplier_1"
     },
     shotgun_reload_2 = { name = "Shotgun CQB Lv2", desc = "Reload shotguns 50% faster.",
-                         upg_type = "weapon",
+                         upg_type = "weapon", disable = "shotgun_reload_1",
       "shotgun_reload_speed_multiplier_2"
     },
     shotgun_stability = { name = "Stability", desc = "+8 (shotguns).",
@@ -1542,10 +1548,6 @@ Global.CrimDawn.tables.upgrades = {
 
   deployable = {
 
-    second_deployable = { name = "Jack of all Trades", desc = "Can equip two deployables.",
-                          count_req = "deployables:2",
-      "second_deployable_1"
-    },
     doctor_bag_capacity = { name = "Deep Pockets", desc = "+1 doctor bag.",
                             item_req = "doctor_bag",
       "doctor_bag_quantity"
@@ -1586,7 +1588,7 @@ Global.CrimDawn.tables.upgrades = {
                           item_req = "sentry_gun,sentry_gun_silent", disable = "sentry_capacity_1",
       "sentry_gun_quantity_2"
     },
-    sentry_cost_2 = { name = "Eco Sentry", desc = "Sentry ammo cost reduced by 10%. Place sentries 50% faster.",
+    sentry_cost = { name = "Eco Sentry", desc = "Sentry ammo cost reduced by 10%. Place sentries 50% faster.",
                       item_req = "sentry_gun,sentry_gun_silent",
       "sentry_gun_cost_reduction_1", "sentry_gun_cost_reduction_2", "player_sentry_gun_deploy_time_multiplier"
     },

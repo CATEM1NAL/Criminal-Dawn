@@ -93,17 +93,12 @@ Hooks:Add("MenuManagerBuildCustomMenus", "CrimDawn_MenuTweaks", function(menu_ma
     CrimDawnClient:PollData()
 
     managers.localization:add_localized_strings({
-    --  ["apd2_enter_lobby_title"] = "Create Lobby",
-    --  ["apd2_enter_lobby_desc"] = "Begin playing Criminal Dawn.",
-    --  ["apd2_start_run_title"] = "A New Criminal Dawn",
-    --  ["apd2_start_run_desc"] = "Bring as much chaos to the streets of D.C. as you can within the time limit.",
       ["crimdawn_play_next_title"] = ordinal(Global.CrimDawn.data.game.run) .. " Criminal Dawn [" .. #Global.CrimDawn.data.game.heists .. "/6]",
       ["crimdawn_play_next_desc"] = "Time remaining: " .. math.floor(Global.CrimDawn.data.game.ponr or -1) .. " seconds.",
-    --  ["apd2_safehouse_desc"] = "Spend your coins on room upgrades! You never know what you might find..."
     })
 
     if Global.CrimDawn.data.game.run == 1 then managers.localization:add_localized_strings({
-      ["crimdawn_start_run_title"] = "A New Criminal Dawn" })
+      ["crimdawn_start_run_title"] = managers.localization:text("crimdawn_first_run_title") })
     else managers.localization:add_localized_strings({
       ["crimdawn_start_run_title"] = "A " .. ordinal(Global.CrimDawn.data.game.run) .. " Criminal Dawn" })
     end

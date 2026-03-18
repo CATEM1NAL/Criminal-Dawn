@@ -1,7 +1,16 @@
 {
-  "crimdawn_enter_lobby_title": "Create Lobby",
+	"crimdawn_enter_lobby_title": "Create Lobby",
   "crimdawn_enter_lobby_desc": "Begin playing Criminal Dawn.",
-  "crimdawn_start_run_title": "A New Criminal Dawn",
+  "crimdawn_first_run_title": "A New Criminal Dawn",
   "crimdawn_start_run_desc": "Bring as much chaos to the streets of D.C. as you can within the time limit.",
-  "crimdawn_safehouse_desc": "Spend your coins on room upgrades! You never know what you might find..."
+  "crimdawn_safehouse_desc": "Spend your coins on room upgrades! You never know what you might find...",
+  "crimdawn_upgrades_title_skills" : "Current Skills",
+  "crimdawn_upgrades_title_perks" : "Current Perks",
+  "crimdawn_upgrades_title_stats" : "Current Stat Boosts",
+  "crimdawn_upgrades_title_deploy" : "Current Deployable Upgrades",
+  "crimdawn_upgrades_button_skills" : "Skills",
+  "crimdawn_upgrades_button_perks" : "Perks",
+  "crimdawn_upgrades_button_stats" : "Stat Boosts",
+  "crimdawn_upgrades_button_deploy" : "Deployable",
+  "crimdawn_upgrades_none" : "None.",
 }

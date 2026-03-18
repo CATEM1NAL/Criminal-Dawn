@@ -6,7 +6,6 @@ local akimbo = Global.CrimDawn.tables.weapons.akimbos
 local secondary = Global.CrimDawn.tables.weapons.secondaries
 local melee = Global.CrimDawn.tables.weapons.melee
 local throwable = Global.CrimDawn.tables.weapons.throwables
-local CrimDawn_DLC
 
 -- Keys are DLC content, values are the target table.
 local dlc_content = {
@@ -277,10 +276,10 @@ if WinSteamDLCManager:_check_dlc_data(tostring(os.time())) or
    WinEpicDLCManager:_check_dlc_data(tostring(os.time())) or
    WINDLCManager:_check_dlc_data(tostring(os.time())) then
      CrimDawn.Log(FileIdent, "Found DLC unlocker")
-     CrimDawn_DLC = true
+     Global.CrimDawn.DLC = true
 end
 
-if not CrimDawn_DLC then -- If we can't verify ownership don't give any DLC
+if not Global.CrimDawn.DLC then -- Only apply DLC if ownership can be verified
   for dlc, _ in pairs(dlc_content) do
     if managers.dlc:is_dlc_unlocked(dlc) then CrimDawn.Log(FileIdent, "Found DLC " .. dlc)
       for dlc_item, dlc_target in pairs(dlc_content[dlc]) do

@@ -8,6 +8,10 @@
 	"color" : "118 126 189",
 	"image" : "dawn.png",
 
+  "dependencies" : { "BeardLib" : "https://github.com/simon-wh/PAYDAY-2-BeardLib/releases/latest/download/BeardLib.zip",
+                     "MutatorHelper" : { "meta" : "https://www.dropbox.com/s/2sba0sy88kzdyor/meta.json?raw=1" },
+                     "CSLMM" : { "meta" : "https://www.dropbox.com/s/b1hkmlxt8sifjcc/meta.json?raw=1" } },
+
 	"hooks" : [
 	  { "hook_id" : "lib/setups/setup", "script_path" : "setup.lua" }
 		{ "hook_id" : "lib/managers/menumanager",		"script_path" : "lua/managers/menu.lua" },
@@ -21,7 +25,7 @@
 		{ "hook_id" : "lib/units/enemies/cop/copdamage",	"script_path" : "lua/score_handler.lua" },
 		{ "hook_id" : "lib/managers/playermanager",	"script_path" : "lua/upgrade_handler.lua" },
 		{ "hook_id" : "lib/tweak_data/upgradestweakdata",	"script_path" : "lua/upgrade_handler.lua" },
-		{ "hook_id" : "lib/states/ingamestandard",		"script_path" : "lua/forced_ponr.lua" },
+		{ "hook_id" : "lib/states/ingamestandard",		"script_path" : "lua/ponr.lua" },
 		{ "hook_id" : "lib/states/victorystate",		"script_path" : "lua/states/victory.lua" },
 		{ "hook_id" : "lib/states/gameoverstate",		"script_path" : "lua/states/gameover.lua" },
 		{ "hook_id" : "lib/units/beings/player/playerdamage",		"script_path" : "lua/archipelago/deathlink.lua" },
@@ -30,9 +34,7 @@
 		{ "hook_id" : "lib/managers/mutatorsmanager",		"script_path" : "lua/overrides/mutator_rules.lua" },
 		{ "hook_id" : "lib/managers/hud/hudassaultcorner",		"script_path" : "lua/overrides/hud_corner.lua" },
 		{ "hook_id" : "lib/managers/group_ai_states/groupaistatebase",		"script_path" : "lua/overrides/ponr_dropin.lua" },
-		{ "hook_id" : "lib/managers/genericsidejobsmanager",		"script_path" : "lua/overrides/sidejobs_generic.lua" },
-		{ "hook_id" : "lib/managers/sidejobeventmanager",		"script_path" : "lua/overrides/sidejobs_event.lua" },
-		{ "hook_id" : "lib/managers/sidejobgenericdlcmanager",		"script_path" : "lua/overrides/sidejobs_dlc.lua" },
+		{ "hook_id" : "lib/managers/blackmarketmanager",		"script_path" : "lua/overrides/sidejob_unlocks.lua" },
 		{ "hook_id" : "lib/managers/skilltreemanager",		"script_path" : "lua/overrides/skills_perks.lua" },
 		{ "hook_id" : "lib/tweak_data/moneytweakdata",		"script_path" : "lua/overrides/item_cost.lua" }
 	],

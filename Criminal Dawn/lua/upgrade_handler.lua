@@ -1,9 +1,13 @@
 local FileIdent = "upgrade_handler"
 
 Hooks:PreHook(PlayerManager, "aquire_default_upgrades", "CrimDawn_UpgradeHandler", function(self)
-  tweak_data.skilltree.default_upgrades = { "player_hostage_trade", "player_special_enemy_highlight", "cable_tie" }
+  tweak_data.skilltree.default_upgrades = {
+    "player_hostage_trade", "player_special_enemy_highlight", "player_sec_camera_highlight", "cable_tie",
+    "temporary_first_aid_damage_reduction", "temporary_passive_revive_damage_reduction_2",
+    "passive_player_xp_multiplier", "player_flashbang_multiplier_2"
+  }
 
-  -- Nuke current upgrades (except for unlocks)
+  -- Nuke current upgrades
   for key, _ in pairs(Global.upgrades_manager.aquired) do
     if key ~= "amcar" and key ~= "glock_17" and key ~= "weapon" then
       if not Global.CrimDawn.data.unlocks[key] then managers.upgrades:unaquire(key) end
