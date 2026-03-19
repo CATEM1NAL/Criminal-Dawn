@@ -1,14 +1,32 @@
 for _, mutator in ipairs(managers.mutators:mutators()) do managers.mutators:set_enabled(mutator, false) end
+Global.mutators._peers_notified = {}
+Global.mutators._peers_ready = {}
 
-local MutatorTable = { "CloakerEffect", "EnemyDamage", "EnemyHealth", "ShotgunTweak", "CloakerArrest",
-  "ShieldPhalanx", "TaserOvercharge", "ZealSniper", "NoAnimHurts", "MedicDozer", "MedicDeathwish",
-  "MedicAdrenaline", "Heavies", "DozerRage", "CloakerTearGas", "MedicHealSpeed", "MedicRage", "DozerRage" }
+local MutatorTable = { "EnemyDamage", "EnemyHealth", "ShotgunTweak",
+  "ShieldPhalanx", "ZealSniper", "Heavies" }
 
+local Difficulty = #Global.CrimDawn.data.game.heists + CrimDawn.DiffScale
 local peers_table = managers.network and managers.network:session() and managers.network:session():peers()
-if table.size(peers_table or {}) > 0 then table.insert(MutatorTable, "FriendlyFire") end
+
+if Difficulty >= 2 then -- Hard
+  table.insert(MutatorTable, "TaserOvercharge")
+  if table.size(peers_table or {}) > 0 then managers.mutators:set_enabled("MutatorFriendlyFire") end
+end
+
+if Difficulty >= 3 then -- Very Hard
+  table.insert(MutatorTable, "CloakerEffect")
+  table.insert(MutatorTable, "CloakerArrest")
+  table.insert(MutatorTable, "MedicDozer")
+  table.insert(MutatorTable, "DozerRage")
+end
+
+if Difficulty >= 4 then -- Overkill
+  table.insert(MutatorTable, "MedicAdrenaline")
+  table.insert(MutatorTable, "MedicRage")
+end
 
 local ActiveMutators = {}
-for i = 1, #Global.CrimDawn.data.game.heists - 1 + CrimDawn.DiffScale do
+for i = 1, Difficulty do
   if next(MutatorTable) then
     local CurrentIndex = math.random(#MutatorTable)
     local CurrentMutator = MutatorTable[CurrentIndex]
@@ -28,10 +46,6 @@ managers.mutators:get_mutator_from_id("MutatorEnemyDamage"):set_value("damage_mu
 managers.mutators:get_mutator_from_id("MutatorCloakerEffect"):set_value("kick_effect", "random")
 managers.mutators:get_mutator_from_id("MutatorShotgunTweak"):set_value("pull_strength", 1 + math.random() * (5 - 1))
 managers.mutators:get_mutator_from_id("MutatorShotgunTweak"):set_value("mothership", math.random() < 0.5)
-managers.mutators:get_mutator_from_id("MutatorFriendlyFire"):set_value("damage_multiplier", 3)
-managers.mutators:get_mutator_from_id("MutatorMedicHealSpeed"):set_value("medic_heal_speed", 20 + math.random() * (40 - 20))
+managers.mutators:get_mutator_from_id("MutatorFriendlyFire"):set_value("damage_multiplier", math.min(Difficulty - 1, 3))
 
-Global.mutators._peers_notified = {}
-Global.mutators._peers_ready = {}
 MenuCallbackHandler:update_matchmake_attributes()
-managers.mutators:force_all_ready()

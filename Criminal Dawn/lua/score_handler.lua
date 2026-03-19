@@ -13,8 +13,8 @@ end
 local HeistCount = #Global.CrimDawn.data.game.heists or 1
 if not NetworkHelper:IsHost() then HeistCount = Global.CrimDawn.data.game.host_heists or 1 end
 
-local ScorePerThing = (HeistCount + DifficultyIndex) * (1 + #ActiveMutators)
-local ScorePerPackage = HeistCount * (1 + #ActiveMutators)
+local ScorePerThing = (HeistCount + DifficultyIndex) * #ActiveMutators
+local ScorePerPackage = HeistCount * #ActiveMutators
 
 local function GainPoints(points, reason)
   if CrimDawn.state.cap_reached then CrimDawnClient:PollTimeUpgrades() -- Cap reached; check for upgrades

@@ -58,7 +58,8 @@ function CrimDawn:Init()
       },
       game = {
         seed = false, max_diff = false, run = 1, score = 0, f_score = 0, score_cap = false, scaling_count = false,
-        heists_won = 0, host_heists = 0, heists = {}, ponr = false, timer_strength = false, deathlink = os.time()
+        heists_won = 0, host_heists = 0, heists = {}, ponr = false, timer_strength = false, deathlink = os.time(),
+        run_length = 0
       },
       chat = { message = "", timestamp = 0 },
       safehouse = {}
@@ -66,6 +67,7 @@ function CrimDawn:Init()
   end
 
   function self:WriteSave(FileIdent, SaveReason)
+    if Global.CrimDawn.data.game.seed ~= CrimDawnClient.data.seed then return end
     io.save_as_json(Global.CrimDawn.data, self.SaveFile)
     self.Log(FileIdent, "Saved " .. self.SaveFile .. " (" .. SaveReason .. ")")
   end -- Yes, this WILL crash without a FileIdent or SaveReason. This is intentional, otherwise I'd get lazy

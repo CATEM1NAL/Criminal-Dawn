@@ -8,9 +8,11 @@
 	"color" : "118 126 189",
 	"image" : "dawn.png",
 
-  "dependencies" : { "BeardLib" : "https://github.com/simon-wh/PAYDAY-2-BeardLib/releases/latest/download/BeardLib.zip",
-                     "MutatorHelper" : { "meta" : "https://www.dropbox.com/s/2sba0sy88kzdyor/meta.json?raw=1" },
-                     "CSLMM" : { "meta" : "https://www.dropbox.com/s/b1hkmlxt8sifjcc/meta.json?raw=1" } },
+  "dependencies" : {
+    "BeardLib" : "https://github.com/simon-wh/PAYDAY-2-BeardLib/releases/latest/download/BeardLib.zip",
+    "MutatorHelper" : { "meta" : "https://www.dropbox.com/s/2sba0sy88kzdyor/meta.json?raw=1" },
+    "CSLMM" : { "meta" : "https://www.dropbox.com/s/b1hkmlxt8sifjcc/meta.json?raw=1" }
+  },
 
 	"hooks" : [
 	  { "hook_id" : "lib/setups/setup", "script_path" : "setup.lua" }

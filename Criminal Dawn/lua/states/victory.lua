@@ -13,7 +13,7 @@ Hooks:PostHook(VictoryState, "at_enter", "CrimDawn_HeistWon", function(self)
   local HeistCount = #Global.CrimDawn.data.game.heists or 1
   if not NetworkHelper:IsHost() then HeistCount = Global.CrimDawn.data.game.host_heists or 1 end
 
-  local VictoryScore = (HeistCount + DifficultyIndex) * (1 + #ActiveMutators)
+  local VictoryScore = (HeistCount + DifficultyIndex) * #ActiveMutators
 
   -- calculates time remaining for next PONR
   if NetworkHelper:IsHost() then

@@ -13,4 +13,8 @@
   "crimdawn_upgrades_button_stats" : "Stat Boosts",
   "crimdawn_upgrades_button_deploy" : "Deployable",
   "crimdawn_upgrades_none" : "None.",
+  "crimdawn_multiworld_missing_title" : "Missing Multiworld Data",
+  "crimdawn_multiworld_missing_desc" : "You need to connect to a multiworld at least once before playing.",
+  "crimdawn_multiworld_invalid_title" : "Invalid Multiworld Data",
+  "crimdawn_multiworld_invalid_desc" : "Restart the game to load the correct data.",
 }

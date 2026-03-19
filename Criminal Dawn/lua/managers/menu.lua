@@ -1,4 +1,5 @@
 local FileIdent = "menu"
+local loc = managers.localization
 
 -- PLAY BUTTON
 function MenuCallbackHandler:CrimDawn_CreateLobby()
@@ -12,8 +13,13 @@ function MenuCallbackHandler:CrimDawn_CreateLobby()
       CrimDawn.Log(FileIdent, "Updated matchmaking key: " .. NetworkMatchMakingSTEAM._BUILD_SEARCH_INTEREST_KEY)
     end self:create_lobby()
 
-  else local NeedSeed = QuickMenu:new("Missing Multiworld Data",
-    "You need to connect to a multiworld at least once before playing.",
+  elseif Global.CrimDawn.data.game.seed ~= CrimDawnClient.data.seed then
+    local InvalidSeed = QuickMenu:new(loc:text("crimdawn_multiworld_invalid_title"),
+      loc:text("crimdawn_multiworld_invalid_desc"),
+      {}, true)
+
+  else local NeedSeed = QuickMenu:new(loc:text("crimdawn_multiworld_missing_title"),
+    loc:text("crimdawn_multiworld_missing_desc"),
     {}, true)
   end
 end
@@ -93,7 +99,8 @@ Hooks:Add("MenuManagerBuildCustomMenus", "CrimDawn_MenuTweaks", function(menu_ma
     CrimDawnClient:PollData()
 
     managers.localization:add_localized_strings({
-      ["crimdawn_play_next_title"] = ordinal(Global.CrimDawn.data.game.run) .. " Criminal Dawn [" .. #Global.CrimDawn.data.game.heists .. "/6]",
+      ["crimdawn_play_next_title"] = ordinal(Global.CrimDawn.data.game.run) ..
+        " Criminal Dawn [" .. #Global.CrimDawn.data.game.heists .. "/" .. Global.CrimDawn.data.game.run_length .. "]",
       ["crimdawn_play_next_desc"] = "Time remaining: " .. math.floor(Global.CrimDawn.data.game.ponr or -1) .. " seconds.",
     })
 
@@ -208,6 +215,7 @@ Hooks:PreHook(MenuCallbackHandler, "start_the_game", "CrimDawn_PreStartGame", fu
 
       CrimDawn.Log(FileIdent, "Loading: " .. NextHeist)
     end
+
   CrimDawn.state.heist_started = true
   end
 end)

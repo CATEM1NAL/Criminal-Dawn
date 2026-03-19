@@ -35,6 +35,7 @@ function CrimDawnClient:PollTimeUpgrades()
   end
 
   CrimDawnClient:LoadData()
+  if Global.CrimDawn.data.game.seed ~= self.data.seed then return end
 
   if self.data["Time Bonus"] > Global.CrimDawn.data.x.time_upgrades then -- Get time upgrades
     local ExtraTime = Global.CrimDawn.data.game.timer_strength * (self.data["Time Bonus"] - Global.CrimDawn.data.x.time_upgrades)
@@ -79,40 +80,20 @@ function CrimDawnClient:PollData()
   CrimDawnClient:LoadData()
   local DataChanged
 
-  -- Copy seed from client if we don't have one
+  -- Pull game config from client if we don't have it
   if not Global.CrimDawn.data.game.seed and self.data.seed then
-    CrimDawn.Log(FileIdent, "Writing seed")
+    CrimDawn.Log(FileIdent, "Writing game config")
     Global.CrimDawn.data.game.seed = self.data.seed
+    Global.CrimDawn.data.game.timer_strength = 60 * self.data.timer_strength
+    Global.CrimDawn.data.game.max_diff = self.data.max_diff
+    Global.CrimDawn.data.game.score_cap = self.data.score_cap
+    Global.CrimDawn.data.game.scaling_count = self.data.scaling_count
+    Global.CrimDawn.data.game.run_length = self.data.run_length
     DataChanged = true
 
   elseif Global.CrimDawn.data.game.seed ~= self.data.seed then
     CrimDawn.Log(FileIdent, "Seed mismatch! Aborting!")
   return end
-
-  -- Pull game config
-  if not Global.CrimDawn.data.game.timer_strength and self.data.timer_strength then
-    CrimDawn.Log(FileIdent, "Setting timer strength")
-    Global.CrimDawn.data.game.timer_strength = 60 * self.data.timer_strength
-    DataChanged = true
-  end
-
-  if not Global.CrimDawn.data.game.max_diff and self.data.max_diff then
-    CrimDawn.Log(FileIdent, "Setting max difficulty")
-    Global.CrimDawn.data.game.max_diff = self.data.max_diff
-    DataChanged = true
-  end
-
-  if not Global.CrimDawn.data.game.score_cap and self.data.score_cap then
-    CrimDawn.Log(FileIdent, "Setting score cap")
-    Global.CrimDawn.data.game.score_cap = self.data.score_cap
-    DataChanged = true
-  end
-
-  if not Global.CrimDawn.data.game.scaling_count and self.data.scaling_count then
-    CrimDawn.Log(FileIdent, "Setting max diff scale count")
-    Global.CrimDawn.data.game.scaling_count = self.data.scaling_count
-    DataChanged = true
-  end
 
   -- Add drill speed upgrades
   if self.data["Drill Sawgeant"] ~= 0 then
