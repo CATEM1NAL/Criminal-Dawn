@@ -32,12 +32,16 @@ Hooks:OverrideFunction(Drill, "set_skill_upgrades", function(self, upgrades)
   local TimerGUI = self._unit:timer_gui()
   local SpeedUpgrade = math.max(upgrades.speed_upgrade_level or 0, self._skill_upgrades.speed_upgrade_level or 0)
   local TimerMult = 1
+  local ProgressionBonus = 0
 
-  local DisabledHeists = {}
   if not CrimDawn.OnFinalHeist() then
-    TimerMult = math.min(Global.CrimDawn.data.game.progression_items * 2, 99)
-    TimerMult = 1 - (TimerMult / 100)
+    ProgressionBonus = math.min(Global.CrimDawn.data.game.progression_items * 2, 99)
+
+  elseif managers.job:current_level_id() == "vit" then
+    ProgressionBonus = math.min(Global.CrimDawn.data.game.progression_items * 2, 100) * 0.5
   end
+
+  TimerMult = 1 - (ProgressionBonus / 100)
 
   if SpeedUpgrade > 0 then
 	  AddBGIcon("drillgui_icon_faster", TimerGUI:get_upgrade_icon_color("upgrade_color_" .. SpeedUpgrade))

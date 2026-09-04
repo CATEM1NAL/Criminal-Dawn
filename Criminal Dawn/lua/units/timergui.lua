@@ -18,8 +18,11 @@ Hooks:PreHook(TimerGui, "_set_jamming_values", "CrimDawn_JammingTimerGUI", funct
 end)
 
 Hooks:PreHook(TimerGui, "_start", "CrimDawn_StartTimerGUI", function(self)
-  if CrimDawn.OnFinalHeist() or managers.job:current_level_id() == "tag" then return end
+  local CurrentLevel = managers.job:current_level_id()
+  if (CrimDawn.OnFinalHeist() and CurrentLevel ~= "vit") or CurrentLevel == "tag" then return end
+
   local TimerMult = math.min(Global.CrimDawn.data.game.progression_items * 2, 99)
-  TimerMult = 1 - (TimerMult / 100)
-  self:set_timer_multiplier(TimerMult)
+  if CrimDawn.OnFinalHeist() and CurrentLevel == "vit" then TimerMult = TimerMult * 0.5 end
+
+  self:set_timer_multiplier(1 - (TimerMult / 100))
 end)
