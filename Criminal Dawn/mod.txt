@@ -3,7 +3,7 @@
 	"description" : "Turns PAYDAY 2 into a multiworld randomiser roguelite powered by https://archipelago.gg.",
 	"author" : "C@:\\EM1NAL\\",
 	"contact" : "contact@stupidcat.uk",
-	"version" : "1.0.9",
+	"version" : "1.0.10",
 	"blt_version" : 2,
 	"color" : "118 126 189",
 	"image" : "dawn.png",
